@@ -1,8 +1,10 @@
 const Workout = require('../models/workoutModel')
 const mongoose = require('mongoose')
 
-const getWorkouts = async (req, res) =>{
-    const workouts = await Workout.find({}).sort({createdAt: -1})
+const getWorkouts = async (req, res) => {
+    const user_id = req.user._id.toString()  // Convert to string
+    
+    const workouts = await Workout.find({ user_id }).sort({createdAt: -1})
 
     res.status(200).json(workouts)
 }
@@ -14,7 +16,9 @@ const getWorkout = async (req, res) => {
        return res.status(404).json({error:"no such workout"})
     }
 
-    const workout = await Workout.findById(id)
+    const user_id = req.user._id.toString()  // Convert to string
+    
+    const workout = await Workout.findOne({ _id: id, user_id })
 
     if (!workout) {
         return res.status(404).json({error:'no such workout'})
@@ -45,10 +49,11 @@ const create_workout = async (req, res)=>{
     }
 
   try {
-    const workout = await Workout.create({title, load, reps})
+    const user_id = req.user._id.toString()  // Convert to string
+    const workout = await Workout.create({title, load, reps, user_id})
     res.status(200).json(workout)
   } catch (error) {
-    res.status(400).json({error: error.message})
+    res.status(400).json({error: error.message, emptyFields: []})
   }
 }
 
@@ -59,7 +64,9 @@ const delete_workout = async(req, res )=>{
        return res.status(404).json({error:"no such workout"})
     }
 
-    const workout = await Workout.findOneAndDelete({_id: id})
+    const user_id = req.user._id.toString()  // Convert to string
+
+    const workout = await Workout.findOneAndDelete({_id: id, user_id})
 
      if (!workout) {
         return res.status(404).json({error:'no such workout'})
@@ -76,7 +83,9 @@ const update_workout = async(req, res)=>{
        return res.status(404).json({error:"no such workout"})
     }
 
-    const workout = await Workout.findOneAndUpdate({_id: id}, {
+    const user_id = req.user._id.toString()  // Convert to string
+
+    const workout = await Workout.findOneAndUpdate({_id: id, user_id}, {
         ...req.body
     })
 
