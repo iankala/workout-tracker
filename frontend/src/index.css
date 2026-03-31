@@ -57,14 +57,15 @@ header a:hover {
 /* homepage */
 .home {
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 100px;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  align-items: start;
 }
 
 .workout-details {
   background: var(--card-bg);
   border-radius: 12px;
-  margin: 20px auto;
+  margin: 20px 0;
   padding: 24px;
   position: relative;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -89,6 +90,10 @@ header a:hover {
   font-size: 0.95em;
   color: var(--text-light);
   line-height: 1.6;
+}
+.workouts {
+  display: flex;
+  flex-direction: column;
 }
 
 .workout-details span {
@@ -178,7 +183,14 @@ div.error {
 input.error {
   border: 2px solid var(--error);
 }
-
+form.create {
+  background: var(--card-bg);
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 100px;
+}
 /* navbar */
 nav {
   display: flex;
@@ -205,6 +217,32 @@ form.signup, form.login {
   background: var(--card-bg);
   border-radius: 16px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+nav div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.workout-details p strong {
+  color: var(--text-dark);
+  margin-right: 6px;
+}
+.workout-details span {
+  opacity: 0.6;
+}
+
+.workout-details:hover span {
+  opacity: 1;
+}
+form.create h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+.pages {
+  max-width: 1400px;
+  padding: 40px 20px;
+  margin: 0 auto;
 }
 
 /* logout button style in navbar */
@@ -234,4 +272,20 @@ nav .logout-btn:active {
 
 nav button{
   margin-left: 10px;
+}
+header h1 {
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+}
+input:hover {
+  border-color: var(--primary);
+}
+@media (max-width: 900px) {
+  .home {
+    grid-template-columns: 1fr;
+  }
+
+  form.create {
+    position: static;
+  }
 }
