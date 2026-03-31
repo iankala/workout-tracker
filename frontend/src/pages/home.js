@@ -33,7 +33,11 @@ const Home = () => {
     <div className="home">
       <div className="workouts">
         {workouts && workouts.length === 0 && (
-          <p>No workouts yet. Add your first one!</p>
+          <div className="empty-state">
+            <div className="empty-icon">💪</div>
+            <h3>No workouts yet</h3>
+            <p>Start your fitness journey by adding your first workout!</p>
+          </div>
         )}
         {workouts &&
           workouts.map((workout) => (
