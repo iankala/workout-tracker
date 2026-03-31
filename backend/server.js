@@ -20,6 +20,11 @@ app.use((req, res, next) => {
 app.use('/api/workouts', workoutRoutes)
 app.use('/api/user', userRoutes)
 
+// root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Workout Tracker API is running!' })
+})
+
 // connect to db
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
